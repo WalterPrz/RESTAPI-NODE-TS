@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tipo_Permiso {
+  id        Int       @id @default(autoincrement())
+  nombre    String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  permisos  Permiso[]
+}
+
+model Permiso {
+  id              Int            @id @default(autoincrement())
+  nombre          String         @unique
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+  Tipo_Permiso    Tipo_Permiso?  @relation(fields: [id_tipo_permiso], references: [id])
+  id_tipo_permiso Int?
+  rols            PermisosRols[]
+}
+
+model Rol {
+  id        Int            @id @default(autoincrement())
+  nombre    String         @unique
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  permisos  PermisosRols[]
+  Usuario   UsuarioRol[]
+}
+
+model PermisosRols {
+  Permiso    Permiso @relation(fields: [id_permiso], references: [id])
+  id_permiso Int
+  Rol        Rol     @relation(fields: [id_rol], references: [id])
+  id_rol     Int
+
+  @@id([id_permiso, id_rol])
+}
+
+model Usuario {
+  id             Int          @id @default(autoincrement())
+  email          String       @unique
+  password       String
+  email_verified Boolean      @default(false)
+  last_login     DateTime
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+  Perfil         Perfil?
+  Rol            UsuarioRol[]
+}
+
+model Perfil {
+  id           Int      @id @default(autoincrement())
+  name         String   @unique
+  foto_perfil  String
+  acerca_de_mi String   @db.Text
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  Usuario      Usuario  @relation(fields: [id_usuario], references: [id])
+  id_usuario   Int      @unique
+}
+
+model UsuarioRol {
+  id        Int     @id @default(autoincrement())
+  Usuario   Usuario @relation(fields: [usuarioId], references: [id])
+  usuarioId Int
+  Rol       Rol     @relation(fields: [rolId], references: [id])
+  rolId     Int
+}

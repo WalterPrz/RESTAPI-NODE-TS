@@ -1,2 +1,1 @@
-export * from "./plugins/env.plugin";
-
+export * from './plugins/env.plugin';

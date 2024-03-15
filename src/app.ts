@@ -1,15 +1,15 @@
-import { envs } from "./config"
-import { Server } from "./presentation/Server"
-import { ApiRoutes } from "./presentation/routes"
+import { envs } from './config';
+import { Server } from './presentation/Server';
+import { ApiRoutes } from './presentation/routes';
 
 (() => {
-    main()
-})()
+    main();
+})();
 
 function main() {
     const server = new Server({
         api_routes: ApiRoutes.routes,
         port: envs.PORT,
-    })
-    server.start()
+    });
+    server.start();
 }
