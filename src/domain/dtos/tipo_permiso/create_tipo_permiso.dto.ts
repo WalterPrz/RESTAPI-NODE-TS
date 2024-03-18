@@ -6,6 +6,7 @@ export class CreateTipoPermisoDto {
         if (nombre.trim() === '') {
             throw new Error('El nombre no puede ser una cadena vacia');
         }
-        return new CreateTipoPermisoDto(nombre);
+        
+        return new CreateTipoPermisoDto(nombre.trim());
     }
 }

@@ -3,6 +3,9 @@ import { TipoPermisoDatasourceImpl } from '../../../infraestructure/datasource/t
 import { TipoPermisoRepositoryImpl } from '../../../infraestructure/repository/tipo_permiso.repository.impl';
 import { TipoPermisoController } from './controller';
 import { wrapMethod } from '../../utils/wrap_method';
+import { SchemaMiddleware } from '../../middlewares/validateSchema.middleware';
+import { SchemaCreateTipoPermiso } from './schemas/create.schema';
+import { SchemaUpdateTipoPermiso } from './schemas/upda.schema';
 
 export class TipoPermisoRoutes {
     static get router() {
@@ -13,8 +16,8 @@ export class TipoPermisoRoutes {
 
         router.get('/', wrapMethod(tipoPermisoController.getAll));
         router.get('/:id', wrapMethod(tipoPermisoController.getOne));
-        router.post('/', wrapMethod(tipoPermisoController.create));
-        router.put('/:id', wrapMethod(tipoPermisoController.updateById));
+        router.post('/', [SchemaMiddleware.verify(SchemaCreateTipoPermiso)], wrapMethod(tipoPermisoController.create));
+        router.put('/:id', [SchemaMiddleware.verify(SchemaUpdateTipoPermiso)], wrapMethod(tipoPermisoController.updateById));
         router.delete('/:id', wrapMethod(tipoPermisoController.deleteById));
         return router;
     }

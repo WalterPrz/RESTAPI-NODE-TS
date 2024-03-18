@@ -5,7 +5,7 @@ export default (err: Error | CustomError, req: Request, res: Response, next: Nex
     if (err instanceof CustomError) {
         res.status(err.statusCode).json({ message: err.message });
     } else {
-        console.log(err)
+        console.log("Handler error: ", err )
         res.status(500).json({ message: err.message || 'Internal Server Error' });
     }
 };
