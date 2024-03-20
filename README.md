@@ -55,9 +55,9 @@ WorkInProgress- Se realizaran pruebas con Jest
 
 _Menciona las herramientas que utilizaste para crear tu proyecto_
 
-* [Express](https://expressjs.com/) - El framework web usado
+* [Express](https://expressjs.com/) - Framework para creacion de API
 * [Prisma](https://www.prisma.io/) - ORM
-* [Node TS](https://nodejs.org/) - Usado para generar RSS
+* [Node TS](https://nodejs.org/) - para crear el servidor
 
 
 
