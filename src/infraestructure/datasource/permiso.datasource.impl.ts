@@ -14,7 +14,11 @@ export class PermisoDatasourceImpl implements PermisoDatasource {
         return PermisoEntity.fromObject(data);
     }
     async getAll(): Promise<PermisoEntity[]> {
-        const data = await prisma.permiso.findMany();
+        const data = await prisma.permiso.findMany({
+            include:{
+                Tipo_Permiso:true
+            }
+        });
         console.log(data)
         return data.map((item) => PermisoEntity.fromObject(item));
     }
