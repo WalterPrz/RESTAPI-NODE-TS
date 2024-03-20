@@ -24,9 +24,9 @@ export class PermisoEntity {
 
     public static fromObject(object: { [key: string]: any }): PermisoEntity {
         const { id, nombre, id_tipo_permiso, createdAt, updatedAt } = object;
-        if (!id) throw 'Id is required';
-        if (!nombre) throw 'Nombre is required';
-        if (!id_tipo_permiso) throw 'Nombre is required';
+        if (!id) throw Error('Id is required');
+        if (!nombre) throw Error('Nombre is required');
+        if (!id_tipo_permiso) throw Error('id_tipo_permiso is required');
         return new PermisoEntity({
             id,
             nombre,
@@ -38,9 +38,9 @@ export class PermisoEntity {
     public static fromJson(json: string): PermisoEntity {
         json = json === '' ? '{}' : json;
         const { id, nombre, id_tipo_permiso, createdAt, updatedAt } = JSON.parse(json);
-        if (!id) throw 'Id is required';
-        if (!nombre) throw 'Nombre is required';
-        if (!id_tipo_permiso) throw 'Nombre is required';
+        if (!id) throw Error('Id is required');
+        if (!nombre) throw Error('Nombre is required');
+        if (!id_tipo_permiso) throw Error('Nombre is required');
         return new PermisoEntity({
             id,
             nombre,

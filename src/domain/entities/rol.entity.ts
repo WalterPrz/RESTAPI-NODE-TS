@@ -21,15 +21,15 @@ export class RolEntity {
 
     public static fromObject(object: { [key: string]: any }): RolEntity {
         const { id, nombre, createdAt, updatedAt } = object;
-        if (!id) throw 'Id is required';
-        if (!nombre) throw 'Nombre is required';
+        if (!id) throw Error('Id is required');
+        if (!nombre) throw Error('Nombre is required');
         return new RolEntity({ id, nombre, createdAt, updatedAt });
     }
     public static fromJson(json: string): RolEntity {
         json = json === '' ? '{}' : json;
         const { id, nombre, createdAt, updatedAt } = JSON.parse(json);
-        if (!id) throw 'Id is required';
-        if (!nombre) throw 'Nombre is required';
+        if (!id) throw Error('Id is required');
+        if (!nombre) throw Error('Nombre is required');
         return new RolEntity({ id, nombre, createdAt, updatedAt });
     }
 }

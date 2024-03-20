@@ -5,7 +5,7 @@ import { TipoPermisoController } from './controller';
 import { wrapMethod } from '../../utils/wrap_method';
 import { SchemaMiddleware } from '../../middlewares/validateSchema.middleware';
 import { SchemaCreateTipoPermiso } from './schemas/create.schema';
-import { SchemaUpdateTipoPermiso } from './schemas/upda.schema';
+import { SchemaUpdateTipoPermiso } from './schemas/update.schema';
 
 export class TipoPermisoRoutes {
     static get router() {

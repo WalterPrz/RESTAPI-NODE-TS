@@ -26,8 +26,8 @@ model Permiso {
   nombre          String         @unique
   createdAt       DateTime       @default(now())
   updatedAt       DateTime       @updatedAt
-  Tipo_Permiso    Tipo_Permiso?  @relation(fields: [id_tipo_permiso], references: [id])
-  id_tipo_permiso Int?
+  Tipo_Permiso    Tipo_Permiso  @relation(fields: [id_tipo_permiso], references: [id])
+  id_tipo_permiso Int
   rols            PermisosRols[]
 }
 

@@ -30,6 +30,12 @@ export class TipoPermisoDatasourceImpl implements TipoPermisoDatasource {
     }
     async deleteBy(id: number): Promise<TipoPermisoEntity> {
         await this.findById(id);
+        const existeRelacion = await prisma.permiso.findFirst({
+            where: {
+                id_tipo_permiso: id,
+            },
+        });
+        if (existeRelacion) throw CustomError.UnprocessableEntity(`Existe permisos relacionados con este id_tipo_permiso: ${id}`);
         const deleteTipoPermiso = await prisma.tipo_Permiso.delete({ where: { id: id } });
         return TipoPermisoEntity.fromObject(deleteTipoPermiso);
     }

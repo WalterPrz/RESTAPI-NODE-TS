@@ -9,7 +9,7 @@ export class SchemaMiddleware {
         const schemaValidator = new JsonSchemaV();
         return async (req: Request, res: Response, next: NextFunction) => {
             try {
-                const { isValid, errors } = schemaValidator.validateSchema(schema, { ...req.body });
+                const { isValid, errors } = await schemaValidator.validateSchema(schema, { ...req.body });
                 if (isValid) return next();
                 let firstError = ''
                 if (Array.isArray(errors)) {
@@ -19,6 +19,7 @@ export class SchemaMiddleware {
                 }
                 next(CustomError.UnprocessableEntity(firstError));
             } catch (error) {
+                console.log(error)
                 next(error);
             }
         };
