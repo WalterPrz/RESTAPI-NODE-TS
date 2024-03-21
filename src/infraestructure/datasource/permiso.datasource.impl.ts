@@ -19,7 +19,6 @@ export class PermisoDatasourceImpl implements PermisoDatasource {
                 Tipo_Permiso:true
             }
         });
-        console.log(data)
         return data.map((item) => PermisoEntity.fromObject(item));
     }
     async findById(id: number): Promise<PermisoEntity> {
