@@ -6,8 +6,6 @@ import { CustomError } from '../../domain/errors/Custom.error';
 
 export class RolDatasourceImpl implements RolDatasource {
     async create(createRolDto: CreateRolDto): Promise<RolEntity> {
-        const existeNombre = await this.findByName(createRolDto.nombre);
-        if (existeNombre) throw CustomError.UnprocessableEntity(`Este nombre ya existe: ${createRolDto.nombre}`);
         const data = await prisma.rol.create({
             data: {
                 nombre: createRolDto.nombre,
@@ -50,12 +48,7 @@ export class RolDatasourceImpl implements RolDatasource {
         return RolEntity.fromObject(data);
     }
     async updateById(updateRolDto: UpdateRolDto): Promise<RolEntity> {
-        await this.findById(updateRolDto.id);
         const dataToUpdate = updateRolDto.value;
-        if (dataToUpdate.nombre) {
-            const existeNombre = await this.findByName(dataToUpdate.nombre, updateRolDto.id);
-            if (existeNombre) throw CustomError.UnprocessableEntity(`Este nombre ya existe: ${updateRolDto.nombre}`);
-        }
         const data = await prisma.rol.update({
             data: dataToUpdate,
             where: {
@@ -77,7 +70,7 @@ export class RolDatasourceImpl implements RolDatasource {
         });
         return RolEntity.fromObject(data);
     }
-    private async findByName(name: string, idIgnore: number | null = null): Promise<boolean> {
+    async findByName(name: string, idIgnore: number | null = null): Promise<{[key:string]:any} | null> {
         const where: any = {
             nombre: name,
         };
@@ -89,7 +82,7 @@ export class RolDatasourceImpl implements RolDatasource {
         const data = await prisma.rol.findFirst({
             where,
         });
-        if (data) return true;
-        return false;
+
+        return data;
     }
 }

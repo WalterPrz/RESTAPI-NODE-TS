@@ -7,7 +7,7 @@ import { SchemaMiddleware } from '../../middlewares/validateSchema.middleware';
 import { SchemaCreateRol } from './schema/create.schema';
 import { SchemaUpdateRol } from './schema/update.schema';
 
-export class RolRouter {
+export class RolRoutes {
     static get router() {
         const router = Router();
         const datasource = new RolDatasourceImpl();

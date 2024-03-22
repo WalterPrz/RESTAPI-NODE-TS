@@ -20,4 +20,7 @@ export class RolRepositoryImpl implements RolRepository {
     deleteBy(id: number): Promise<RolEntity> {
         return this.datasource.deleteBy(id);
     }
+    findByName(name: string, idIgnore: number | null): Promise<{ [key: string]: any } | null> {
+        return this.datasource.findByName(name, idIgnore);
+    }
 }

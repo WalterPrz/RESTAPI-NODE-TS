@@ -19,7 +19,7 @@ export class SchemaMiddleware {
                 }
                 next(CustomError.UnprocessableEntity(firstError));
             } catch (error) {
-                console.log(error)
+                // console.log(error)
                 next(error);
             }
         };

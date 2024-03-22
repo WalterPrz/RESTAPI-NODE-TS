@@ -8,4 +8,5 @@ export abstract class RolDatasource {
     abstract findById(id: number): Promise<RolEntity>;
     abstract updateById(updateRolDto: UpdateRolDto): Promise<RolEntity>;
     abstract deleteBy(id: number): Promise<RolEntity>;
+    abstract findByName(name: string, idIgnore: number | null ): Promise<{[key:string]:any} | null>;
 }

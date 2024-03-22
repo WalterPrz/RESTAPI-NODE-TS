@@ -1,5 +1,6 @@
 import { UpdateRolDto } from '../../dtos';
 import { RolEntity } from '../../entities';
+import { CustomError } from '../../errors/Custom.error';
 import { RolRepository } from '../../repository';
 
 export interface UpdateByIdRolUseCase {
@@ -7,7 +8,12 @@ export interface UpdateByIdRolUseCase {
 }
 export class UpdateByIdRol implements UpdateByIdRolUseCase {
     constructor(private readonly repository: RolRepository) {}
-    execute(dto: UpdateRolDto): Promise<RolEntity> {
+    async execute(dto: UpdateRolDto): Promise<RolEntity> {
+        await this.repository.findById(dto.id);
+        if (dto.nombre) {
+            const existeNombre = await this.repository.findByName(dto.value.nombre, dto.id);
+            if (existeNombre) throw CustomError.UnprocessableEntity(`Este nombre ya existe: ${dto.value.nombre}`);
+        }
         return this.repository.updateById(dto);
     }
 }
